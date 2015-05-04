@@ -22,6 +22,8 @@ client.on :message do |data|
 	end
 end
 
+client.start
+
 get '/' do
 	load 'get_stats.rb'
 	"#{$counted}"
