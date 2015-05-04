@@ -9,10 +9,9 @@ fail auth['error'] unless auth['ok']
 
 client = Slack.realtime
 
-client.start
-
 client.on :hello do
-	logger.info 'Successfully connected.'
+	# logger.info 'Successfully connected.'
+	puts "connected"
 end
 
 client.on :message do |data|
@@ -24,3 +23,5 @@ client.on :message do |data|
 			Slack.chat_postMessage channel: data['channel'], text: "#{$counted}"
 		end
 end
+
+client.start
