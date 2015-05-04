@@ -17,7 +17,9 @@ end
 client.on :message do |data|
 	case data['text']
 		when 'makeshiftbot status'
-			Slack.chat_postMessage channel: data['channel'], text: "A-OK boss"
+			if data.user = "hudson"
+				Slack.chat_postMessage channel: data['channel'], text: "A-OK boss"
+			end
 		when 'makeshiftbot playlist stats'
 			load 'get_stats.rb'
 			Slack.chat_postMessage channel: data['channel'], text: "#{$counted}"
