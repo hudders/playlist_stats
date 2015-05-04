@@ -1,1 +1,1 @@
-web: bundle exec ruby stats.rb
+web: bundle exec ruby makeshift.rb
