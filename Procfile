@@ -1,1 +1,1 @@
-web: bundle exec ruby stats.erb
+web: bundle exec ruby stats.rb
