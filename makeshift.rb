@@ -1,5 +1,5 @@
 require 'slack'
-require 'sinatra'
+# require 'sinatra'
 
 Slack.configure do |config|
 	config.token = "xoxb-4747582215-8kzsB42AFwDDiyGUIp7kMBkx"
@@ -24,9 +24,9 @@ client.on :message do |data|
 		end
 end
 
-# client.start
+client.start
 
-get '/' do
-	load 'get_stats.rb'
-	"#{$counted}"
-end
+# get '/' do
+# 	load 'get_stats.rb'
+# 	"#{$counted}"
+# end
