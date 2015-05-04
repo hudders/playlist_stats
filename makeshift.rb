@@ -17,7 +17,7 @@ end
 client.on :message do |data|
 	case data['text']
 		when 'makeshiftbot status'
-			if data.user = "hudson"
+			if data.user = "U02D7MQFW"
 				Slack.chat_postMessage channel: data['channel'], text: "A-OK boss"
 			end
 		when 'makeshiftbot playlist stats'
