@@ -16,15 +16,15 @@ end
 
 client.on :message do |data|
 	case data['text']
-	when 'makeshift test'
-		Slack.chat_postMessage channel: data['channel'], text: "A-OK boss"
-	when 'makeshift playlist stats'
-		load 'get_stats.rb'
-		Slack.chat_postMessage channel: data['channel'], text: "#{$counted}"
-	end
+		when 'makeshift test'
+			Slack.chat_postMessage channel: data['channel'], text: "A-OK boss"
+		when 'makeshift playlist stats'
+			load 'get_stats.rb'
+			Slack.chat_postMessage channel: data['channel'], text: "#{$counted}"
+		end
 end
 
-client.start
+# client.start
 
 get '/' do
 	load 'get_stats.rb'
