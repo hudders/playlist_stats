@@ -43,5 +43,11 @@ arr.each do |name|
 	counts[name] += 1
 end
 
-p number_of_tracks
-p counts.sort_by{|o,ct| [-ct,o] }
+# p number_of_tracks
+# p counts.sort_by{|o,ct| [-ct,o] }
+
+countedup = counts.sort_by{|o,ct| [-ct,o] }
+
+puts "HTTP/1.0 200 OK\r\n"
+puts "Content-type: text/html\r\n\r\n"
+puts "<html><body>#{countedup}</body></html>\r\n"
