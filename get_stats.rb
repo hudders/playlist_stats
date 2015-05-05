@@ -1,5 +1,4 @@
 require 'rspotify'
-require 'json'
 
 client_id = "0fed2ff60e004c509ba2d4a484580eaf"
 client_secret = "baad9e6c16f9489eaa141edba74d6d11"
@@ -23,6 +22,14 @@ def convertuserid(moniker)
 	moniker
 end
 
+def countup(list)
+	counts = Hash.new 0
+	list.each do |name|
+		counts[name] += 1
+	end
+	counts.sort_by{|o,ct| [-ct,o] }
+end
+
 def getusers
 	Playlist.tracks(limit: 100, offset: 0)
 	mylist = Playlist.tracks_added_by.values
@@ -44,13 +51,37 @@ def getusers
 		arr << moniker
 	end
 
-	counts = Hash.new 0
+	countup(arr)
+end
 
-	arr.each do |name|
-		counts[name] += 1
+def top(number, type)
+	tracklist = Playlist.tracks(limit: 100, offset: 0)	
+	if $number_of_tracks > 100
+		tracklist = tracklist + Playlist.tracks(limit: 100, offset: 100)
 	end
-
-	counts.sort_by{|o,ct| [-ct,o] }
+	if $number_of_tracks > 200
+		tracklist = tracklist + Playlist.tracks(limit: 100, offset: 200)
+	end
+	case type
+		when "artists"
+			artistArray = Array.new
+			tracklist.each do |track|
+				artistArray << track.artists[0].name
+			end
+			countup(artistArray).take(number)
+		when "albums"
+			albumArray = Array.new
+			tracklist.each do |track|
+				albumArray << track.album.name
+			end
+			countup(albumArray).take(number)
+		when "genres"
+			genreArray = Array.new
+			tracklist.each do |track|
+				genreArray << track.artists[0].genres[0]
+			end
+			countup(genreArray).take(number)
+		end
 end
 
 def getlasttrack

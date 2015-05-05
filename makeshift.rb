@@ -30,6 +30,9 @@ client.on :message do |data|
 		when "<@U04MZH46B>: latest"
 			load 'get_stats.rb'
 			reply(data, "#{getlasttrack}")
+		when /^<@U04MZH46B>: top(\d+) (.*)$/
+			load 'get_stats.rb'
+			reply(data, "#{top($1.to_i, $2.to_s)}")
 		end
 	case data['user']
 		when "U02D7MQFW"
