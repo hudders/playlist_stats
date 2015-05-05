@@ -10,7 +10,9 @@ fail auth['error'] unless auth['ok']
 client = Slack.realtime
 
 def reply(data, text)
-	Slack.chat_postMessage channel: data['channel'], username: "makeshift", icon_url: "https://s3-us-west-2.amazonaws.com/slack-files2/avatars/2015-05-05/4755270959_95b37f5e2e721a8d0a79_72.jpg", text: text
+	Slack.chat_postMessage channel: data['channel'],
+						   as_user: true,
+						   text: text
 end
 
 client.on :hello do
@@ -31,6 +33,8 @@ client.on :message do |data|
 			case data['text']
 				when "<@U04MZH46B>: test"
 					reply(data, "Everything's A-OK boss. :smile:")
+				when "<@U04MZH46B>: reformat test"
+					reply(data, "All good")
 				end
 		end
 end
