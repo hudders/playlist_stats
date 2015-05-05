@@ -66,7 +66,9 @@ def top(number, type)
 		when "artists"
 			artistArray = Array.new
 			tracklist.each do |track|
-				artistArray << track.artists[0].name
+				track.artists.each do |artist|
+					artistArray << artist.name
+				end
 			end
 			countup(artistArray).take(number)
 		when "albums"
@@ -78,7 +80,11 @@ def top(number, type)
 		when "genres"
 			genreArray = Array.new
 			tracklist.each do |track|
-				genreArray << track.artists[0].genres[0]
+				track.artists.each do |artist|
+					artist.genres.each do |genre|
+						genreArray << genre
+					end
+				end
 			end
 			countup(genreArray).take(number)
 		end
