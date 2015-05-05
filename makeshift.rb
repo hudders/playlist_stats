@@ -23,18 +23,19 @@ client.on :message do |data|
 	case data['text']
 		when '<@U04MZH46B>: stats'
 			load 'get_stats.rb'
-			reply(data, "#{$counted}")
+			reply(data, "#{getusers}")
 		when '<@U04MZH46B>: total'
 			load 'get_stats.rb'
 			reply(data, "There are #{$number_of_tracks} tracks in the #{$playlist_name} playlist.")
+		when "<@U04MZH46B>: latest"
+			load 'get_stats.rb'
+			reply(data, "#{getlasttrack}")
 		end
 	case data['user']
 		when "U02D7MQFW"
 			case data['text']
 				when "<@U04MZH46B>: test"
 					reply(data, "Everything's A-OK boss. :smile:")
-				when "<@U04MZH46B>: reformat test"
-					reply(data, "All good")
 				end
 		end
 end
