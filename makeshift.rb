@@ -1,5 +1,7 @@
 require 'slack'
 
+$stdout.sync = true
+
 Slack.configure do |config|
 	config.token = "xoxb-4747582215-8kzsB42AFwDDiyGUIp7kMBkx"
 end
@@ -30,7 +32,7 @@ client.on :message do |data|
 		when "<@U04MZH46B>: latest"
 			load 'get_stats.rb'
 			reply(data, "#{getlasttrack}")
-		when /^<@U04MZH46B>: top(\d+) (?:artists|albums|genres)$/
+		when /^<@U04MZH46B>: top(\d{1,2}) ((?:artists|albums|genres))$/
 			load 'get_stats.rb'
 			reply(data, "#{top($1.to_i, $2.to_s)}")
 		end
