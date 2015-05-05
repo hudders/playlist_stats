@@ -61,32 +61,24 @@ end
 
 def top(number, type)
 	getplaylistinfo
-	case type
-		when "artists"
-			artistArray = Array.new
-			$tracklist.each do |track|
+	arr = Array.new
+	$tracklist.each do |track|
+		case type
+			when "artists"
 				track.artists.each do |artist|
-					artistArray << artist.name
+					arr << artist.name
 				end
-			end
-			countup(artistArray).take(number)
-		when "albums"
-			albumArray = Array.new
-			$tracklist.each do |track|
-				albumArray << track.album.name + " (" + track.artists[0].name + ")"
-			end
-			countup(albumArray).take(number)
-		when "genres"
-			genreArray = Array.new
-			$tracklist.each do |track|
+			when "albums"
+				arr << track.album.name + " (" + track.artists[0].name + ")"
+			when "genres"
 				track.artists.each do |artist|
 					artist.genres.each do |genre|
-						genreArray << genre
+						arr << genre
 					end
 				end
 			end
-			countup(genreArray).take(number)
-		end
+	end
+	countup(arr).take(number)
 end
 
 def getlasttrack
