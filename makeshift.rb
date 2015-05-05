@@ -34,6 +34,8 @@ client.on :message do |data|
 			reply(data, "#{top($1.to_i, $2.to_s)}")
 		when /^<@U04MZH46B>: tracks by (.*)$/
 			reply(data, "#{gettracksby($1.to_s)}")
+		when /^<@U04MZH46B>: genre (.*)$/
+			reply(data, "#{gettrackswithgenre($1.to_s)}")
 		end
 	case data['user']
 		when "U02D7MQFW"

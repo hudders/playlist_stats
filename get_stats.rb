@@ -89,15 +89,31 @@ def getlasttrack
 	lasttrack.last.name + " - " + lasttrack.last.artists[0].name + " added by "	+ convertuserid(lastadder) + " on " + lastdate
 end
 
-def gettracksby(artist)
+def gettracksby(x)
 	getplaylistinfo
 	arr = Array.new
 	$tracklist.each do |track|
-		track.artists.each do |troubador|
-			case troubador.name
-				when artist
+		track.artists.each do |artist|
+			case artist.name
+				when x
 					arr << track.name
 				end
+		end
+	end
+	arr
+end
+
+def gettrackswithgenre(x)
+	getplaylistinfo
+	arr = Array.new
+	$tracklist.each do |track|
+		track.artists.each do |artist|
+			artist.genres.each do |genre|
+				case genre
+					when x
+						arr << track.name + " (" + artist.name + ")"
+					end
+			end
 		end
 	end
 	arr
