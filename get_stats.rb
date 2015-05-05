@@ -8,17 +8,18 @@ RSpotify.authenticate(client_id, client_secret)
 
 playlist = RSpotify::Playlist.find("h7dders", "4w7GeFJhl5tsIETsfglq9a")
 
-number_of_tracks = playlist.total
+$playlist_name = playlist.name
+$number_of_tracks = playlist.total
 
 playlist.tracks(limit: 100, offset: 0)
 mylist = playlist.tracks_added_by.values
 
-if number_of_tracks > 100
+if $number_of_tracks > 100
 	playlist.tracks(limit: 100, offset: 100)
 	mylist = mylist + playlist.tracks_added_by.values
 end
 
-if number_of_tracks > 200
+if $number_of_tracks > 200
 	playlist.tracks(limit: 100, offset: 200)
 	mylist = mylist + playlist.tracks_added_by.values
 end

@@ -23,6 +23,9 @@ client.on :message do |data|
 		when 'makeshiftbot playlist stats'
 			load 'get_stats.rb'
 			Slack.chat_postMessage channel: data['channel'], text: "#{$counted}"
+		when 'makeshiftbot playlist total'
+			load 'get_stats.rb'
+			Slack.chat_postMessage channel: data['channel'], text: "There are #{$number_of_tracks} tracks in the #{$playlist_name} playlist."
 		end
 end
 
