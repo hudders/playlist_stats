@@ -4,6 +4,8 @@ require 'rufus/scheduler'
 
 load 'github_status.rb'
 
+oldgithubstatus = ""
+
 scheduler = Rufus::Scheduler.new
 
 $stdout.sync = true
@@ -24,9 +26,13 @@ def reply(data, text)
 end
 
 scheduler.every '5m' do
-	Slack.chat_postMessage channel: "D04MZMCPB",
-					   as_user: true,
-					   text: getgithubstatus
+	newgithubstatus = getgithubstatus
+	if newgithubstatus != oldgithubstatus
+		Slack.chat_postMessage channel: "D04MZMCPB",
+						   as_user: true,
+						   text: "github's status is " + getgithubstatus + ". :octocat:"
+		oldgithubstatus = newgithubstatus
+	end
 end
 
 client.on :hello do
