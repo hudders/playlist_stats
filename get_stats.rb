@@ -118,3 +118,44 @@ def gettrackswithgenre(x)
 	end
 	arr
 end
+
+def gettracksaddedby(x)
+	getplaylistinfo
+	arr = Array.new
+	count = 0
+	$userlist.each do |user|
+		count += 1
+		moniker = convertuserid(user.id)
+		case moniker
+			when x
+				track = $tracklist[count - 1]
+				arr << track.name + " (" + track.artists[0].name + ")"
+			end
+	end
+	arr
+end
+
+def getfave(name, type)
+	getplaylistinfo
+	arr = Array.new
+	count = 0
+	$userlist.each do |user|
+		count += 1
+		moniker = convertuserid(user.id)
+		case moniker
+			when name
+				track = $tracklist[count - 1]
+				case type
+					when "artist"
+						arr << track.artists[0].name
+					when "genre"
+						track.artists.each do |artist|
+							artist.genres.each do |genre|
+								arr << genre
+							end
+						end
+					end
+			end
+	end
+	name + "'s favourite " + type + " is " + countup(arr).take(1)[0][0].to_s
+end

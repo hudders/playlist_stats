@@ -36,6 +36,10 @@ client.on :message do |data|
 			reply(data, "#{gettracksby($1.to_s)}")
 		when /^<@U04MZH46B>: genre (.*)$/
 			reply(data, "#{gettrackswithgenre($1.to_s)}")
+		when /^<@U04MZH46B>: tracks added by (.*)$/
+			reply(data, "#{gettracksaddedby($1.to_s)}")
+		when /^<@U04MZH46B>: (.*) (favourite|favorite|fave) (artist|genre)$/
+			reply(data, "#{getfave($1.to_s, $3.to_s)}")
 		when /^<@U04MZH46B>: (?:who are you|why are you here|what are you)\?$/
 			reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 		when /^<@U04MZH46B>: (.*)$/
