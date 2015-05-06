@@ -24,11 +24,11 @@ end
 client.on :message do |data|
 	load 'get_stats.rb'
 	case data['text']
-		when '<@U04MZH46B>: stats'
+		when /^<@U04MZH46B>: (?:stats|statistics|users|tracks per user)$/
 			reply(data, "#{getusers}")
-		when '<@U04MZH46B>: total'
+		when /^<@U04MZH46B>: (?:total|total tracks|number|number of tracks)$/
 			reply(data, "There are #{$number_of_tracks} tracks in the #{$playlist_name} playlist.")
-		when "<@U04MZH46B>: latest"
+		when /^<@U04MZH46B>: (?:latest|last|last added|last track)$/
 			reply(data, "#{getlasttrack}")
 		when /^<@U04MZH46B>: top(\d{1,2}) ((?:artists|albums|genres))$/
 			reply(data, "#{top($1.to_i, $2.to_s)}")
@@ -36,6 +36,10 @@ client.on :message do |data|
 			reply(data, "#{gettracksby($1.to_s)}")
 		when /^<@U04MZH46B>: genre (.*)$/
 			reply(data, "#{gettrackswithgenre($1.to_s)}")
+		when /^<@U04MZH46B>: (?:who are you|why are you here|what are you)\?$/
+			reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
+		when /^<@U04MZH46B>: (.*)$/
+			reply(data, "No entiendo.")
 		end
 	case data['user']
 		when "U02D7MQFW"
