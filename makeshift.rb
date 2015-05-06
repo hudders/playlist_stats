@@ -1,4 +1,10 @@
+require 'rubygems'
 require 'slack'
+require 'rufus/scheduler'
+
+load 'github_status.rb'
+
+scheduler = Rufus::Scheduler.new
 
 $stdout.sync = true
 
@@ -17,47 +23,52 @@ def reply(data, text)
 						   text: text
 end
 
+scheduler.every '5m' do
+	Slack.chat_postMessage channel: "D04MZMCPB",
+					   as_user: true,
+					   text: getgithubstatus
+end
+
 client.on :hello do
 	Slack.chat_postMessage channel: "D04MZMCPB",
 						   as_user: true,
 						   text: "Hello. I've been updated."
-	# puts "connected"
 end
 
 client.on :message do |data|
 	load 'get_stats.rb'
-	# case data['text']
-	# when /^<@U04MZH46B>: (?:stats|statistics|users|tracks per user)$/
-	# 	reply(data, "#{getusers}")
-	# when /^<@U04MZH46B>: (?:total|total tracks|number|number of tracks)$/
-	# 	reply(data, "There are #{$number_of_tracks} tracks in the #{$playlist_name} playlist.")
-	# when /^<@U04MZH46B>: (?:latest|last|last added|last track)$/
-	# 	reply(data, "#{getlasttrack}")
-	# when /^<@U04MZH46B>: top(\d{1,2}) ((?:artists|albums|genres))$/
-	# 	reply(data, "#{top($1.to_i, $2.to_s)}")
-	# when /^<@U04MZH46B>: tracks by (.*)$/
-	# 	reply(data, "#{gettracksby($1.to_s)}")
-	# when /^<@U04MZH46B>: genre (.*)$/
-	# 	reply(data, "#{gettrackswithgenre($1.to_s)}")
-	# when /^<@U04MZH46B>: tracks added by (.*)$/
-	# 	reply(data, "#{gettracksaddedby($1.to_s)}")
-	# when /^<@U04MZH46B>: (.*) (favourite|favorite|fave) (artist|genre)$/
-	# 	reply(data, "#{getfave($1.to_s, $3.to_s)}")
-	# when /^<@U04MZH46B>: (?:who are you|why are you here|what are you)\?$/
-	# 	reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
-	# when /^<@U04MZH46B>: (.*)$/
-	# 	reply(data, "No entiendo.")
-	# end
-	case data['user']
+	case data['text']
+	when /^<@U04MZH46B>: (?:stats|statistics|users|tracks per user)$/
+		reply(data, "#{getusers}")
+	when /^<@U04MZH46B>: (?:total|total tracks|number|number of tracks)$/
+		reply(data, "There are #{$number_of_tracks} tracks in the #{$playlist_name} playlist.")
+	when /^<@U04MZH46B>: (?:latest|last|last added|last track)$/
+		reply(data, "#{getlasttrack}")
+	when /^<@U04MZH46B>: top(\d{1,2}) ((?:artists|albums|genres))$/
+		reply(data, "#{top($1.to_i, $2.to_s)}")
+	when /^<@U04MZH46B>: tracks by (.*)$/
+		reply(data, "#{gettracksby($1.to_s)}")
+	when /^<@U04MZH46B>: genre (.*)$/
+		reply(data, "#{gettrackswithgenre($1.to_s)}")
+	when /^<@U04MZH46B>: tracks added by (.*)$/
+		reply(data, "#{gettracksaddedby($1.to_s)}")
+	when /^<@U04MZH46B>: (.*) (favourite|favorite|fave) (artist|genre)$/
+		reply(data, "#{getfave($1.to_s, $3.to_s)}")
+	when /^<@U04MZH46B>: (?:who are you|why are you here|what are you)\?$/
+		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
+	when "<@U04MZH46B>: playlist link"
+		reply(data, "http://tinyurl/mxdkube")
+	when /^<@U04MZH46B>: (.*)$/
+		case data['user']
 		when "U02D7MQFW"
 			case data['text']
-			when "<@U04MZH46B>: playlist link"
-				reply(data, "http://tinyurl/mxdkube")
 			when "<@U04MZH46B>: test"
-				puts data['channel']
-				# reply(data, "Everything's A-OK boss. :smile:")
+				reply(data, "Everything's A-OK boss. :smile:")
 			end
+		else
+			reply(data, "No entiendo.")
 		end
+	end
 end
 
 client.start
