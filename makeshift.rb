@@ -66,6 +66,20 @@ client.on :message do |data|
 		reply(data, "http://tinyurl.com/mxdkube")
 	when "<@U04MZH46B>: github status"
 		reply(data, "Last time I looked, github's status was " + $oldgithubstatus + ".")
+
+	when /^<@U04MZH46B>: (list|help)$/
+		reply(data, "Here's a complete list of commands I accept:
+			stats - show how many tracks each person has added to the playlist.
+			total - show the total number of tracks in the playlist.
+			latest - show the last track added to the playlist and who added it.
+			topX artists / albums / genres - show the artists, albums or genres that appear most in the playlist, where X is the number of results to return, (eg top10 artists).
+			tracks by X - show all tracks by the specified artist (eg tracks by Travis).
+			genre X - show all tracks that are attributed to the specified genre (eg genre rock).
+			tracks added by X - show all tracks added by a specific user (eg tracks added by Robin).
+			X fave artist / genre - show the artist or genre that appears most in the submissions by the specified user (eg Tim fave artist).
+			playlist link - display the URL for the Allspark playlist.
+			github status - display the last status report I got from github.")
+
 	when /^<@U04MZH46B>: (.*)$/
 		case data['user']
 		when "U02D7MQFW"
