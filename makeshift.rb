@@ -63,7 +63,7 @@ client.on :message do |data|
 	when /^<@U04MZH46B>: (?:who are you|why are you here|what are you)\?$/
 		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 	when "<@U04MZH46B>: playlist link"
-		reply(data, "http://tinyurl/mxdkube")
+		reply(data, "http://tinyurl.com/mxdkube")
 	when "<@U04MZH46B>: github status"
 		reply(data, "Last time I looked, github's status was " + $oldgithubstatus + ".")
 	when /^<@U04MZH46B>: (.*)$/

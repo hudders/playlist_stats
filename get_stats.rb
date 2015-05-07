@@ -20,6 +20,7 @@ def convertuserid(moniker)
 	moniker.sub! "1153680424", "Darren"
 	moniker.sub! "mogriggs", "Griggs"
 	moniker.sub! "11125700658", "Ragan"
+	moniker.sub! "deborahclare-gb", "Debbie"
 	moniker
 end
 
