@@ -4,14 +4,14 @@ require 'rufus/scheduler'
 
 load 'github_status.rb'
 
-oldgithubstatus = ""
+$oldgithubstatus = "good"
 
 scheduler = Rufus::Scheduler.new
 
 $stdout.sync = true
 
 Slack.configure do |config|
-	config.token = "xoxb-4747582215-8kzsB42AFwDDiyGUIp7kMBkx"
+	config.token = ENV['SLACK_API_TOKEN']
 end
 
 auth = Slack.auth_test
@@ -27,11 +27,11 @@ end
 
 scheduler.every '5m' do
 	newgithubstatus = getgithubstatus
-	if newgithubstatus != oldgithubstatus
+	if newgithubstatus != $oldgithubstatus
 		Slack.chat_postMessage channel: "D04MZMCPB",
 						   as_user: true,
-						   text: "github's status is " + getgithubstatus + ". :octocat:"
-		oldgithubstatus = newgithubstatus
+						   text: "github's status has changed to " + newgithubstatus + "."
+		$oldgithubstatus = newgithubstatus
 	end
 end
 
@@ -64,6 +64,8 @@ client.on :message do |data|
 		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 	when "<@U04MZH46B>: playlist link"
 		reply(data, "http://tinyurl/mxdkube")
+	when "<@U04MZH46B>: github status"
+		reply(data, "Last time I looked, github's status was " + $oldgithubstatus + ".")
 	when /^<@U04MZH46B>: (.*)$/
 		case data['user']
 		when "U02D7MQFW"
