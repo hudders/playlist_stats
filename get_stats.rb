@@ -33,28 +33,19 @@ def countup(list)
 end
 
 def getplaylistinfo
-	Playlist.tracks(limit: 100, offset: 0)
-	$tracklist = Playlist.tracks(limit: 100, offset: 0)
-	$userlist = Playlist.tracks_added_by.values
-	if $number_of_tracks > 100
-		Playlist.tracks(limit: 100, offset: 100)
-		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 100)
+
+	offset = ($number_of_tracks/100.to_f).ceil
+	$x = 0
+
+	$tracklist = []
+	$userlist = []
+
+	while $x < offset do
+		listSize = ($x*100)
+		Playlist.tracks(limit: 100, offset: listSize)
+		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: listSize)
 		$userlist = $userlist + Playlist.tracks_added_by.values
-	end
-	if $number_of_tracks > 200
-		Playlist.tracks(limit: 100, offset: 200)
-		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 200)
-		$userlist = $userlist + Playlist.tracks_added_by.values
-	end
-	if $number_of_tracks > 300
-		Playlist.tracks(limit: 100, offset: 300)
-		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 300)
-		$userlist = $userlist + Playlist.tracks_added_by.values
-	end
-	if $number_of_tracks > 400
-		Playlist.tracks(limit: 100, offset: 400)
-		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 400)
-		$userlist = $userlist + Playlist.tracks_added_by.values
+		$x +=1
 	end
 end
 
