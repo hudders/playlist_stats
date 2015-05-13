@@ -46,6 +46,16 @@ def getplaylistinfo
 		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 200)
 		$userlist = $userlist + Playlist.tracks_added_by.values
 	end
+	if $number_of_tracks > 300
+		Playlist.tracks(limit: 100, offset: 300)
+		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 300)
+		$userlist = $userlist + Playlist.tracks_added_by.values
+	end
+	if $number_of_tracks > 400
+		Playlist.tracks(limit: 100, offset: 400)
+		$tracklist = $tracklist + Playlist.tracks(limit: 100, offset: 400)
+		$userlist = $userlist + Playlist.tracks_added_by.values
+	end
 end
 
 def getusers
