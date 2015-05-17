@@ -2,7 +2,7 @@ require 'rubygems'
 require 'slack'
 require 'rufus/scheduler'
 
-load 'github_status.rb'
+load '/git/playlist_stats/github_status.rb'
 
 $oldgithubstatus = "good"
 
@@ -36,13 +36,19 @@ scheduler.every '5m' do
 end
 
 client.on :hello do
+	testTheWater = ""
+	while testTheWater.lines.count != 2 do
+		testTheWater = `mpc lsplaylists`
+	end
+	`mpc load 'AllSpark by h7dders'`
+	`mpc repeat on && mpc shuffle && mpc play`
 	Slack.chat_postMessage channel: "D04MZMCPB",
 						   as_user: true,
-						   text: "Hello. I've been updated."
+						   text: "Ready."
 end
 
 client.on :message do |data|
-	load 'get_stats.rb'
+	load '/git/playlist_stats/get_stats.rb'
 	case data['text']
 	when /^<@U04MZH46B>: (?:stats|statistics|users|tracks per user)$/
 		reply(data, "#{getusers}")
@@ -66,7 +72,13 @@ client.on :message do |data|
 		reply(data, "http://tinyurl.com/mxdkube")
 	when "<@U04MZH46B>: github status"
 		reply(data, "Last time I looked, github's status was " + $oldgithubstatus + ".")
-
+	when "<@U04MZH46B>: now playing"
+                messageReply = `mpc status`
+                if messageReply.lines.count == 1
+        	        reply(data, "Nothing is playing.")
+                else
+                        reply(data, messageReply.lines[0])
+                end
 	when /^<@U04MZH46B>: (list|help)$/
 		reply(data, "Here's a complete list of commands I accept:
 			stats - show how many tracks each person has added to the playlist.
@@ -86,6 +98,9 @@ client.on :message do |data|
 			case data['text']
 			when "<@U04MZH46B>: test"
 				reply(data, "Everything's A-OK boss. :smile:")
+			when /^<@U04MZH46B>: mpc (.*)$/
+				messageReply = `mpc #{$1}`
+				reply(data, messageReply)
 			end
 		else
 			reply(data, "No entiendo.")
