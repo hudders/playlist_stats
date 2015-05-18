@@ -85,8 +85,12 @@ client.on :message do |data|
                 if messageReply.lines.count == 1
         	        reply(data, "Nothing is playing.")
                 else
-                        reply(data, messageReply.lines[0])
+                	trackName = (`mpc -f "[%title%]" status`).lines[0]
+                	personWhoAdded = whoAdded(trackName)
+                    reply(data, messageReply.lines[0]) + " added by " + personWhoAdded)
                 end
+    when "<@U04MZH46B>: who added (.*?)"
+    	reply(data, "#{$1} was added by " + whoAdded($1))
 	when /^<@U04MZH46B>: (list|help)$/
 		reply(data, "Here's a complete list of commands I accept:
 			stats - show how many tracks each person has added to the playlist.
@@ -98,7 +102,9 @@ client.on :message do |data|
 			tracks added by X - show all tracks added by a specific user (eg tracks added by Robin).
 			X fave artist / genre - show the artist or genre that appears most in the submissions by the specified user (eg Tim fave artist).
 			playlist link - display the URL for the Allspark playlist.
-			github status - display the last status report I got from github.")
+			github status - display the last status report I got from github.
+			now playing - display the name of the currently playing song.
+			who added X - display the name of the user who added a specific track (eg who added Fell In Love With A Girl).")
 
 	when /^<@U04MZH46B>: (.*)$/
 		case data['user']

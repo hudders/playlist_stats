@@ -161,3 +161,17 @@ def getfave(name, type)
 	end
 	name + "'s favourite " + type + " is " + countup(arr).take(1)[0][0].to_s
 end
+
+def whoAdded(trackName)
+	getplaylistinfo
+	count = 0
+	$tracklist.each do |track|
+		count += 1
+		case track.name
+		when trackName
+			trackId = count
+			break
+		end
+	end
+	convertuserid($userlist[count].id)
+end
