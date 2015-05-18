@@ -1,8 +1,8 @@
 require 'rspotify'
 
-client_id = #ENV['SPOTIFY_CLIENT_ID']
-client_secret = #ENV['SPOTIFY_CLIENT_SECRET']
-playlist_id = #ENV['SPOTIFY_PLAYLIST_ID']
+client_id = "0fed2ff60e004c509ba2d4a484580eaf"
+client_secret = "baad9e6c16f9489eaa141edba74d6d11"
+playlist_id = "4w7GeFJhl5tsIETsfglq9a"
 
 RSpotify.authenticate(client_id, client_secret)
 

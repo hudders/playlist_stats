@@ -11,7 +11,7 @@ scheduler = Rufus::Scheduler.new
 $stdout.sync = true
 
 Slack.configure do |config|
-	config.token = ENV['SLACK_API_TOKEN']
+	config.token = "xoxb-4747582215-8kzsB42AFwDDiyGUIp7kMBkx"
 end
 
 auth = Slack.auth_test
@@ -35,9 +35,17 @@ scheduler.every '5m' do
 	end
 end
 
+scheduler.every '2m' do
+	mpcstatus = `mpc status`
+	case mpcstatus
+	when /^(.*?)\[paused\](.*?)$/
+		`mpc toggle`
+	end
+end
+
 client.on :hello do
 	testTheWater = ""
-	while testTheWater.lines.count != 2 do
+	while testTheWater.lines.count < 2 do
 		testTheWater = `mpc lsplaylists`
 	end
 	`mpc load 'AllSpark by h7dders'`
