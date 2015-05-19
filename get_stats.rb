@@ -169,7 +169,6 @@ def whoAdded(trackName)
 		count += 1
 		case track.name
 		when trackName
-			trackId = count
 			break
 		end
 	end
