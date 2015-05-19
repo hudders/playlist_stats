@@ -85,7 +85,7 @@ client.on :message do |data|
                 if messageReply.lines.count == 1
         	        reply(data, "Nothing is playing.")
                 else
-                	trackName = (`mpc -f "[%title%]" status`).lines[0]
+                	trackName = (`mpc -f "[%title%]" status`).lines[0].delete("\n")
                     reply(data, trackName)
                 	personWhoAdded = whoAdded(trackName)
                     reply(data, messageReply.lines[0] + " added by " + personWhoAdded)
