@@ -172,5 +172,6 @@ def whoAdded(trackName)
 			break
 		end
 	end
+    puts count
 	convertuserid($userlist[count].id)
 end
