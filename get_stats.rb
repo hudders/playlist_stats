@@ -165,13 +165,13 @@ end
 def whoAdded(trackName)
 	getplaylistinfo
 	count = 0
+    number = 0
 	$tracklist.each do |track|
 		count += 1
 		case track.name
 		when trackName
-			break
+			number = count
 		end
 	end
-    puts count
-	convertuserid($userlist[count].id)
+	convertuserid($userlist[number].id)
 end
