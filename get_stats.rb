@@ -172,7 +172,9 @@ def whoAdded(trackName)
 		when trackName
 			result = convertuserid($userlist[count].id)
             break
-		end
+		else
+            result = track.name
+        end
 	end
     result
 end
