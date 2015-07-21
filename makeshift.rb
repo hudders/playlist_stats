@@ -11,7 +11,7 @@ require 'slack'
 $stdout.sync = true
 
 Slack.configure do |config|
-	config.token = SPOTIFY_API_TOKEN
+	config.token = SLACK_API_TOKEN
 end
 
 auth = Slack.auth_test
