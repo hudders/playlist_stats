@@ -1,12 +1,5 @@
 require 'rubygems'
 require 'slack'
-# require 'rufus/scheduler'
-
-# load '/git/playlist_stats/github_status.rb'
-
-# $oldgithubstatus = "good"
-
-# scheduler = Rufus::Scheduler.new
 
 $stdout.sync = true
 
@@ -25,31 +18,7 @@ def reply(data, text)
 						   text: text
 end
 
-# scheduler.every '5m' do
-# 	newgithubstatus = getgithubstatus
-# 	if newgithubstatus != $oldgithubstatus
-# 		Slack.chat_postMessage channel: "D04MZMCPB",
-# 						   as_user: true,
-# 						   text: "github's status has changed to " + newgithubstatus + "."
-# 		$oldgithubstatus = newgithubstatus
-# 	end
-# end
-
-# scheduler.every '2m' do
-# 	mpcstatus = `mpc status`
-# 	case mpcstatus
-# 	when /^(.*?)\[paused\](.*?)$/
-# 		`mpc toggle`
-# 	end
-# end
-
 client.on :hello do
-	# testTheWater = ""
-	# while testTheWater.lines.count < 2 do
-	# 	testTheWater = `mpc lsplaylists`
-	# end
-	# `mpc load 'AllSpark by h7dders'`
-	# `mpc repeat on && mpc shuffle && mpc play`
 	Slack.chat_postMessage channel: "D04MZMCPB",
 						   as_user: true,
 						   text: "Ready."
@@ -78,17 +47,15 @@ client.on :message do |data|
 		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 	when "<@U04MZH46B>: playlist link"
 		reply(data, "http://tinyurl.com/mxdkube")
-	when "<@U04MZH46B>: github status"
-		reply(data, "Last time I looked, github's status was " + $oldgithubstatus + ".")
-	when "<@U04MZH46B>: now playing"
-                messageReply = `mpc status`
-                if messageReply.lines.count == 1
-        	        reply(data, "Nothing is playing.")
-                else
-                	trackName = (`mpc -f "[%title%]" status`).lines[0].delete("\n")
-                	personWhoAdded = whoAdded(trackName)
-                    reply(data, messageReply.lines[0] + " added by " + personWhoAdded)
-                end
+	# when "<@U04MZH46B>: now playing"
+ #                messageReply = `mpc status`
+ #                if messageReply.lines.count == 1
+ #        	        reply(data, "Nothing is playing.")
+ #                else
+ #                	trackName = (`mpc -f "[%title%]" status`).lines[0].delete("\n")
+ #                	personWhoAdded = whoAdded(trackName)
+ #                    reply(data, messageReply.lines[0] + " added by " + personWhoAdded)
+ #                end
     when /^<@U04MZH46B>: who added (.*?)$/
     	reply(data, whoAdded($1.to_s))
 	when /^<@U04MZH46B>: (list|help)$/
@@ -102,8 +69,7 @@ client.on :message do |data|
 			tracks added by X - show all tracks added by a specific user (eg tracks added by Robin).
 			X fave artist / genre - show the artist or genre that appears most in the submissions by the specified user (eg Tim fave artist).
 			playlist link - display the URL for the Allspark playlist.
-			github status - display the last status report I got from github.
-			now playing - display the name of the currently playing song.
+			now playing - display the name of the currently playing song. (currently disabled)
 			who added X - display the name of the user who added a specific track (eg who added Fell In Love With A Girl).")
 
 	when /^<@U04MZH46B>: (.*)$/
