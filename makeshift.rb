@@ -56,7 +56,7 @@ client.on :hello do
 end
 
 client.on :message do |data|
-	load '/git/playlist_stats/get_stats.rb'
+	load 'get_stats.rb'
 	case data['text']
 	when /^<@U04MZH46B>: (?:stats|statistics|users|tracks per user)$/
 		reply(data, "#{getusers}")
