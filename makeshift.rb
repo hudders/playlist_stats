@@ -1,17 +1,17 @@
 require 'rubygems'
 require 'slack'
-require 'rufus/scheduler'
+# require 'rufus/scheduler'
 
-load '/git/playlist_stats/github_status.rb'
+# load '/git/playlist_stats/github_status.rb'
 
-$oldgithubstatus = "good"
+# $oldgithubstatus = "good"
 
-scheduler = Rufus::Scheduler.new
+# scheduler = Rufus::Scheduler.new
 
 $stdout.sync = true
 
 Slack.configure do |config|
-	config.token = "xoxb-4747582215-8kzsB42AFwDDiyGUIp7kMBkx"
+	config.token = SPOTIFY_API_TOKEN
 end
 
 auth = Slack.auth_test
@@ -25,31 +25,31 @@ def reply(data, text)
 						   text: text
 end
 
-scheduler.every '5m' do
-	newgithubstatus = getgithubstatus
-	if newgithubstatus != $oldgithubstatus
-		Slack.chat_postMessage channel: "D04MZMCPB",
-						   as_user: true,
-						   text: "github's status has changed to " + newgithubstatus + "."
-		$oldgithubstatus = newgithubstatus
-	end
-end
+# scheduler.every '5m' do
+# 	newgithubstatus = getgithubstatus
+# 	if newgithubstatus != $oldgithubstatus
+# 		Slack.chat_postMessage channel: "D04MZMCPB",
+# 						   as_user: true,
+# 						   text: "github's status has changed to " + newgithubstatus + "."
+# 		$oldgithubstatus = newgithubstatus
+# 	end
+# end
 
-scheduler.every '2m' do
-	mpcstatus = `mpc status`
-	case mpcstatus
-	when /^(.*?)\[paused\](.*?)$/
-		`mpc toggle`
-	end
-end
+# scheduler.every '2m' do
+# 	mpcstatus = `mpc status`
+# 	case mpcstatus
+# 	when /^(.*?)\[paused\](.*?)$/
+# 		`mpc toggle`
+# 	end
+# end
 
 client.on :hello do
-	testTheWater = ""
-	while testTheWater.lines.count < 2 do
-		testTheWater = `mpc lsplaylists`
-	end
-	`mpc load 'AllSpark by h7dders'`
-	`mpc repeat on && mpc shuffle && mpc play`
+	# testTheWater = ""
+	# while testTheWater.lines.count < 2 do
+	# 	testTheWater = `mpc lsplaylists`
+	# end
+	# `mpc load 'AllSpark by h7dders'`
+	# `mpc repeat on && mpc shuffle && mpc play`
 	Slack.chat_postMessage channel: "D04MZMCPB",
 						   as_user: true,
 						   text: "Ready."
