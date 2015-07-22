@@ -1,12 +1,15 @@
 require 'rufus/scheduler'
+require 'httparty'
 
-def nowplaying
-	(`mpc -f "[%title%]" status`).lines[0].delete("\n")
+def whatisplaying
+	nowplaying = (`mpc -f "[%title%]" status`).lines[0].delete("\n")
+	HTTParty.post("http://mwhtest.sergei.io/test", :body => {:data => "#{nowplaying}"}.to_json)
 end
 
 scheduler = Rufus::Scheduler.new
 
 scheduler.every '2m' do
+	whatisplaying
 	mpcstatus = `mpc status`
 	case mpcstatus
 	when /^(.*?)\[paused\](.*?)$/
