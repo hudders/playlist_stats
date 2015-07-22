@@ -1,1 +1,1 @@
-worker: bundle exec ruby makeshift.rb
+worker: bundle exec ruby makeshift_server.rb

@@ -47,15 +47,6 @@ client.on :message do |data|
 		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 	when "<@U04MZH46B>: playlist link"
 		reply(data, "http://tinyurl.com/mxdkube")
-	# when "<@U04MZH46B>: now playing"
- #                messageReply = `mpc status`
- #                if messageReply.lines.count == 1
- #        	        reply(data, "Nothing is playing.")
- #                else
- #                	trackName = (`mpc -f "[%title%]" status`).lines[0].delete("\n")
- #                	personWhoAdded = whoAdded(trackName)
- #                    reply(data, messageReply.lines[0] + " added by " + personWhoAdded)
- #                end
     when /^<@U04MZH46B>: who added (.*?)$/
     	reply(data, whoAdded($1.to_s))
 	when /^<@U04MZH46B>: (list|help)$/
@@ -69,18 +60,13 @@ client.on :message do |data|
 			tracks added by X - show all tracks added by a specific user (eg tracks added by Robin).
 			X fave artist / genre - show the artist or genre that appears most in the submissions by the specified user (eg Tim fave artist).
 			playlist link - display the URL for the Allspark playlist.
-			now playing - display the name of the currently playing song. (currently disabled)
 			who added X - display the name of the user who added a specific track (eg who added Fell In Love With A Girl).")
-
 	when /^<@U04MZH46B>: (.*)$/
 		case data['user']
 		when "U02D7MQFW"
 			case data['text']
 			when "<@U04MZH46B>: test"
 				reply(data, "Everything's A-OK boss. :smile:")
-			when /^<@U04MZH46B>: mpc (.*)$/
-				messageReply = `mpc #{$1}`
-				reply(data, messageReply)
 			end
 		else
 			reply(data, "No entiendo.")
