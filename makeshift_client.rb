@@ -3,7 +3,7 @@ require 'httparty'
 
 def whatisplaying
 	nowplaying = `mpc current`
-	HTTParty.post("http://mwhtest.sergei.io/test", :body => {:data => "#{nowplaying}"}.to_json)
+	HTTParty.post("http://mwhtest.sergei.io", :body => {:data => "#{nowplaying}"}.to_json)
 end
 
 scheduler = Rufus::Scheduler.new
