@@ -14,14 +14,12 @@ scheduler.every '2m' do
 	end
 end
 
-schedule.in '1s' do
-	testTheWater = ""
-	while testTheWater.lines.count < 2 do
-		testTheWater = `mpc lsplaylists`
-	end
-	# `mpc add spotify:user:h7dders:playlist:4w7GeFJhl5tsIETsfglq9a`
-	`mpc load 'AllSpark by h7dders'`
-	`mpc repeat on && mpc shuffle && mpc play`
+testTheWater = ""
+while testTheWater.lines.count < 2 do
+	testTheWater = `mpc lsplaylists`
 end
+# `mpc add spotify:user:h7dders:playlist:4w7GeFJhl5tsIETsfglq9a`
+`mpc load 'AllSpark by h7dders'`
+`mpc repeat on && mpc shuffle && mpc play`
 
 scheduler.join
