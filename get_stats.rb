@@ -1,4 +1,5 @@
 require 'rspotify'
+require 'httparty'
 
 client_id = ENV['SPOTIFY_CLIENT_ID']
 client_secret = ENV['SPOTIFY_CLIENT_SECRET']
@@ -177,4 +178,8 @@ def whoAdded(trackName)
         end
 	end
     result
+end
+
+def nowPlaying
+	HTTParty.get('http://mwhtest.sergei.io/test')
 end

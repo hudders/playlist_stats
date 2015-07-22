@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'slack'
 
 $stdout.sync = true
@@ -49,6 +48,8 @@ client.on :message do |data|
 		reply(data, "http://tinyurl.com/mxdkube")
     when /^<@U04MZH46B>: who added (.*?)$/
     	reply(data, whoAdded($1.to_s))
+	when /^<@U04MZH46B>: now playing$/
+		reply(data, nowPlaying)
 	when /^<@U04MZH46B>: (list|help)$/
 		reply(data, "Here's a complete list of commands I accept:
 			stats - show how many tracks each person has added to the playlist.
