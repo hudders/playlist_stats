@@ -22,9 +22,6 @@ schedule.in '1s' do
 	# `mpc add spotify:user:h7dders:playlist:4w7GeFJhl5tsIETsfglq9a`
 	`mpc load 'AllSpark by h7dders'`
 	`mpc repeat on && mpc shuffle && mpc play`
-	Slack.chat_postMessage channel: "D04MZMCPB",
-						   as_user: true,
-						   text: nowplaying
 end
 
 scheduler.join
