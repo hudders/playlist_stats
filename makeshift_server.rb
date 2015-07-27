@@ -61,7 +61,8 @@ client.on :message do |data|
 			tracks added by X - show all tracks added by a specific user (eg tracks added by Robin).
 			X fave artist / genre - show the artist or genre that appears most in the submissions by the specified user (eg Tim fave artist).
 			playlist link - display the URL for the Allspark playlist.
-			who added X - display the name of the user who added a specific track (eg who added Fell In Love With A Girl).")
+			who added X - display the name of the user who added a specific track (eg who added Fell In Love With A Girl).
+			now playing - displays the name and artist of the track currently playing (if any).")
 	when /^<@U04MZH46B>: (.*)$/
 		case data['user']
 		when "U02D7MQFW"

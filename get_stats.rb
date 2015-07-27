@@ -181,5 +181,6 @@ def whoAdded(trackName)
 end
 
 def nowPlaying
-	HTTParty.get('http://mwhtest.sergei.io')
+	# HTTParty.get('http://mwhtest.sergei.io')
+	"Sorry, that command doesn't work anymore. RIP Makeshift. :sad:"
 end
