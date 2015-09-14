@@ -17,11 +17,11 @@ def reply(data, text)
 						   text: text
 end
 
-client.on :hello do
-	Slack.chat_postMessage channel: "D04MZMCPB",
-						   as_user: true,
-						   text: "Ready."
-end
+# client.on :hello do
+# 	Slack.chat_postMessage channel: "D04MZMCPB",
+# 						   as_user: true,
+# 						   text: "Ready."
+# end
 
 client.on :message do |data|
 	load 'get_stats.rb'
