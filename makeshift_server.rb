@@ -21,7 +21,7 @@ def react(data, text)
 	Slack.chat_postMessage channel: data['channel'],
 						   as_user: true,
 						   text: text
-	Slack.reactions_add: data['channel'],
+	Slack.reactions_add data['channel'],
 				name: two,
 				timestamp: 1460383362000104
 end
