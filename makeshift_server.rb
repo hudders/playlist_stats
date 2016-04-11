@@ -17,14 +17,6 @@ def reply(data, text)
 						   text: text
 end
 
-def react(data, text)
-	Slack.chat_postMessage channel: data['channel'],
-						   as_user: true,
-						   text: text
-	Slack.reactions_add: data['channel'],
-				name: thumbsup
-				file_comment: p1460383362000104
-end
 # client.on :hello do
 # 	Slack.chat_postMessage channel: "D04MZMCPB",
 # 						   as_user: true,
