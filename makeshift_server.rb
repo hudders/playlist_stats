@@ -17,15 +17,6 @@ def reply(data, text)
 						   text: text
 end
 
-def react(data, text)
-	Slack.chat_postMessage channel: data['channel'],
-						   as_user: true,
-						   text: text
-	Slack.reactions_add: data['channel'],
-				name: two,
-				timestamp: 1460383362000104
-end
-
 # client.on :hello do
 # 	Slack.chat_postMessage channel: "D04MZMCPB",
 # 						   as_user: true,
@@ -55,8 +46,6 @@ client.on :message do |data|
 		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 	when "<@U04MZH46B>: playlist link"
 		reply(data, "http://tinyurl.com/mxdkube")
-	when "<@U04MZH46B>: vote no"
-		react(data, "Sure thing, boss.")
     when /^<@U04MZH46B>: who added (.*?)$/
     	reply(data, whoAdded($1.to_s))
 	when /^<@U04MZH46B>: now playing$/
