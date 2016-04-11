@@ -55,10 +55,8 @@ client.on :message do |data|
 		reply(data, "I am here to dispense statistics about the Decepticon team Spotify playlist. :smile:")
 	when "<@U04MZH46B>: playlist link"
 		reply(data, "http://tinyurl.com/mxdkube")
-	when "<@U04MZH46B>: vote no"
-		react(data, "Sure thing, boss.")
-    when /^<@U04MZH46B>: who added (.*?)$/
-    	reply(data, whoAdded($1.to_s))
+        when /^<@U04MZH46B>: who added (.*?)$/
+       		reply(data, whoAdded($1.to_s))
 	when /^<@U04MZH46B>: now playing$/
 		reply(data, nowPlaying)
 	when /^<@U04MZH46B>: (list|help)$/
