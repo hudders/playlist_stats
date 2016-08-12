@@ -17,15 +17,6 @@ def reply(data, text)
 						   text: text
 end
 
-def react(data, text)
-	Slack.chat_postMessage channel: data['channel'],
-						   as_user: true,
-						   text: text
-	Slack.reactions_add data['channel'],
-				name: two,
-				timestamp: 1460383362000104
-end
-
 # client.on :hello do
 # 	Slack.chat_postMessage channel: "D04MZMCPB",
 # 						   as_user: true,
@@ -72,8 +63,6 @@ client.on :message do |data|
 			playlist link - display the URL for the Allspark playlist.
 			who added X - display the name of the user who added a specific track (eg who added Fell In Love With A Girl).
 			now playing - displays the name and artist of the track currently playing (if any).")
-	when /^<@U04MZH46B>: vote no$/
-		react(data, "Sure thing. :smile:")
 	when /^<@U04MZH46B>: (.*)$/
 		case data['user']
 		when "U02D7MQFW"
