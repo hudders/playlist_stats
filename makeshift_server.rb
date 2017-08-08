@@ -1,53 +1,37 @@
-
+require 'slack'
 
 $stdout.sync = true
 
-class CTM
-	include Slack
-end
+token1 = ENV['SLACK_API_TOKEN']
+token2 = ENV['SLACK_API_TOKEN_2']
 
-class ChickenPicnic
-	include Slack
-end
+ctm = Slack::Client.new token: token1
+wlk = Slack::Client.new token: token2
 
-CTM.configure do |config|
-	config.token = ENV['SLACK_API_TOKEN']
-end
-
-ChickenPicnic.configure do |config|
-	config.token = ENV['SLACK_API_TOKEN_2']
-end
-
-auth = CTM.auth_test
-fail auth['error'] unless auth['ok']
-
-auth2 = ChickenPicnic.auth_test
-fail auth2['error'] unless auth2['ok']
-
-client = CTM.realtime
-client2 = ChickenPicnic.realtime
+rtm_ctm = ctm.realtime
+rtm_wlk = wlk.realtime
 
 def reply(data, text)
-	ChickenPicnic.chat_postMessage channel: "G6KQPSEDT",
+	wlk.chat_postMessage channel: "G6KQPSEDT",
 						as_user: true,
 						text: text
 end
 
-client.on :hello do
-	ChickenPicnic.chat_postMessage channel: "U21BNDFJ8",
+rtm_ctm.on :hello do
+	wlk.chat_postMessage channel: "U21BNDFJ8",
 						as_user: true,
 						text: "CTM Ready."
 end
 
-client2.on :hello do
-	ChickenPicnic.chat_postMessage channel: "U21BNDFJ8",
+rtm_wlk.on :hello do
+	wlk.chat_postMessage channel: "U21BNDFJ8",
 						as_user: true,
 						text: "ChickenPicnic Ready."
 end
 
-client.on :message do |data|
+rtm_ctm.on :message do |data|
 	reply(data['text'])
 end
 
-client.start
-client2.start
+rtm_ctm.start
+rtm_wlk.start
