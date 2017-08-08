@@ -1,9 +1,14 @@
-require 'slack'
+
 
 $stdout.sync = true
 
-CTM = Slack.new
-ChickenPicnic = Slack.new
+class CTM
+	include Slack
+end
+
+class ChickenPicnic
+	include Slack
+end
 
 CTM.configure do |config|
 	config.token = ENV['SLACK_API_TOKEN']
