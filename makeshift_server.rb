@@ -10,7 +10,7 @@ CTM.configure do |config|
 end
 
 ChickenPicnic.configure do |config|
-	config.token = "xoxb-223838902293-G9SYARO3xs9rW3NUfaA4QO73"
+	config.token = ENV['SLACK_API_TOKEN_2']
 end
 
 auth = CTM.auth_test
