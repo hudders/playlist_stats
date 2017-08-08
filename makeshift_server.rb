@@ -33,5 +33,5 @@ rtm_ctm.on :message do |data|
 	reply(data['text'])
 end
 
-rtm_ctm.start
+#rtm_ctm.start
 rtm_wlk.start
